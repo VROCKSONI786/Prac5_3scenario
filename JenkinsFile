@@ -3,7 +3,7 @@ pipeline{
         node
         {
             label 'local'
-            customWorkspace ' F:\\VRUTIK\\7thSem\\MLOps\\Practical5\\Prac5_1scenario'
+            customWorkspace ' F:\\VRUTIK\\7thSem\\MLOps\\Practical5\\Prac5_3scenario'
         }
     }
     stages{
