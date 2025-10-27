@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  dbapp:
+    image: demo3_jenkins_dbapp
+    build:
+      context: ./dbapp
+      dockerfile: Dockerfile
+    container_name: demo3_jenkins_cont_dbapp
+    ports:
+      - "8001:8001"
+    networks:
+      - appnet
+  webapp:
+    image: demo3_jenkins_webapp
+    build:
+      context: ./webapp
+      dockerfile: Dockerfile
+    container_name: demo3_jenkins_cont_webapp
+    ports:
+      - "8000:8000"
+    depends_on:
+      - dbapp
+    environment:
+      - DB_URL=http://dbapp:8001
+    networks:
+      - appnet
+networks:
+  appnet:
+    driver: bridge
+

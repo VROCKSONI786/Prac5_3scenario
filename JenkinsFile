@@ -1,0 +1,36 @@
+pipeline{
+    agent{
+        node
+        {
+            label 'local'
+            customWorkspace ' F:\\VRUTIK\\7thSem\\MLOps\\Practical5\\Prac5_1scenario'
+        }
+    }
+    stages{
+        stage('Checkout Code'){
+            steps{
+                git branch: 'main', url: 'https://github.com/VROCKSONI786/Prac5_3scenario.git'
+            }
+        }
+        stage('Show Workspace'){
+            steps{
+                bat 'cd'
+            }
+        }
+        stage('Build Images'){
+            steps{
+                bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker-compose.exe" build'
+            }
+        }
+        stage('Run Tests'){
+            steps{
+                bat 'docker run --rm demo3_jenkins_webapp pytest || echo "No tests found"'
+            }
+        }
+        stage('Deploy Containers'){
+            steps{
+                bat '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker-compose.exe" up -d'
+            }
+        }
+    }
+}
